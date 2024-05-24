@@ -21,7 +21,7 @@ TODO
 
 The easiest way to run the scripts is via Google Colab. The Jupyter notebook Epistasis_analysis.ipynb can directly be opened on Colab by pressing the following Open in Colab button:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Hollfelder-Lab/lrDMS-IRED/notebooks/blob/main/Epistasis_analysis.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Hollfelder-Lab/lrDMS-IRED/blob/main/notebooks/Epistasis_analysis.ipynb)
 
 After having opened the notebook in Colab, the python scripts `analysis_utils.py` and `plotting_utils.py` from the src folder need to be uploaded. These scripts contain the core functions for the analyses and plots to be carried out. Also, the csv file `MePy_merge_filtered_260923.csv` from the data folder containing the DMS data along side the distance matrix npy file `min_dimer_distances.npy` must be uploaded
 
