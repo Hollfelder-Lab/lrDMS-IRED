@@ -23,7 +23,7 @@ TODO
 
 Extraction of UMIs from basecalled Nanopore reads for clustering 
 
-The following commands are available: 
+Use the following commands to run the script 'UMI_extract.py' 
 
 -T Number of threads to execute in parallel. Defaults to CPU count.
 
@@ -42,6 +42,19 @@ The following commands are available:
 --min_probe_score Minimal alignment score of probe for processing. Defaults to length of probe sequence.
 
 
+Using the mmseqs2 output to generate a .fasta files for individual clusters
+
+Use the following commands to run the script 'tsv2fasta.py'
+
+Positional argument: 'clusterfile' Provide MMseqs2 output file (as .tsv)
+
+--sizethreshs Low and high thresholds for cluster sizes. Defaults to 1 1000.
+
+--splitfile If a read file (fasta/fastq) is provided here, individual fasta files per cluster will be generated.
+
+--similarityfile If a read file (fasta/fastq) is provided here, <similaritysamplesize> clusters will be analysed for internal cluster similarity.
+
+--similaritysamplesize Sample size for within cluster similarity analysis. Defaults to 500.
 
 
 
