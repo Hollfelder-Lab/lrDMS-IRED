@@ -29,8 +29,17 @@ Our data is available on Zenodo: [![DOI](https://zenodo.org/badge/doi/TODO/zenod
 ## 📃 Citing this work:
 Please cite our paper if you use this code or data in your own work:
 ```bibtex
-@article {Gantz2024,
-	#TODO
+@article {
+	Gantz2024,
+	author = {Gantz, Maximilian and Mathis, Simon V. and Nintzel, Friederike E. H. and Zurek, Paul J. and Knaus, Tanja and Patel, Elie and Boros, Daniel and Weberling, Friedrich-Maximilian and Kenneth, Matthew R. A. and 		Klein, Oskar J. and Medcalf, Elliot J. and Moss, Jacob and Herger, Michael and Kaminski, Tomasz S. and Mutti, Francesco G. and Lio, Pietro and Hollfelder, Florian},
+	title = {Microdroplet screening rapidly profiles a biocatalyst to enable its AI-assisted engineering},
+	elocation-id = {2024.04.08.588565},
+	year = {2024},
+	doi = {10.1101/2024.04.08.588565},
+	publisher = {Cold Spring Harbor Laboratory},
+	URL = {https://www.biorxiv.org/content/early/2024/04/08/2024.04.08.588565},
+	eprint = {https://www.biorxiv.org/content/early/2024/04/08/2024.04.08.588565.full.pdf},
+	journal = {bioRxiv}
 }
 ```
 
@@ -43,3 +52,4 @@ For questions, please contact
 - fh111(at)cam.ac.uk  
 - mg985(at)cam.ac.uk
 - simon.mathis(at)cl.cam.ac.uk
+- fmw37(at)cam.ac.uk
