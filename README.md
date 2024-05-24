@@ -26,13 +26,22 @@ Extraction of UMIs from basecalled Nanopore reads for clustering
 The following commands are available: 
 
 -T Number of threads to execute in parallel. Defaults to CPU count.
+
 -v Gives Version 
+
 -i Provide basecalled reads in fastq format.
+
 -o Specify the name of the UMI output fasta file.
+
 --probe A short sequence (eg 50 bp) adjacent to the UMI in fasta format.
+
 --umi_loc Location of UMI in reference to the probe. Upstream (up) or downstream (down).
+
 --umi_len Length of the UMI to be extracted.
+
 --min_probe_score Minimal alignment score of probe for processing. Defaults to length of probe sequence.
+
+
 
 
 
