@@ -22,6 +22,7 @@ classifiers=[
 
 dependencies = [
     # TODO: add dependencies
+    "loguru>=0.7.2",
 ]
 
 [project.urls]
@@ -55,4 +56,8 @@ extend-include = ["*.ipynb"]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src/lrdms"]
+include = ["data/**"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"data" = "lrdms/_data"  # include data files in the wheel when `pip install`-ing
