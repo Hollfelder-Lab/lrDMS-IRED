@@ -47,12 +47,12 @@ To automate consensus generation via medaka for clusterfiles generated using the
 Can be used in automation by using the 'clustering_automator.py' script 
 
 **Generating a variant identifyer file for DiMSum**
-Use the following arguments to run 'VIF_generator.py':
---probe_UMI_down 'A short sequence (eg 14 bp) beginning 4 bp downstream of the UMI in fasta format.'
---probe_UMI_up 'A short sequence (eg 14 bp) ending 4 bp upstream of the UMI in fasta format.'
---probe_frame_down 'A short sequence (eg 10 bp) flanking the frame (downstream) in fasta format.
---probe_frame_up '(eg 10 bp) flanking the frame (upstream) in fasta format.
---clusterfolder 'path to clusterfolder generated after using clustering_automator.py'
+Use the following arguments to run 'VIF_generator.py':  
+--probe_UMI_down 'A short sequence (eg 14 bp) beginning 4 bp downstream of the UMI in fasta format.'  
+--probe_UMI_up 'A short sequence (eg 14 bp) ending 4 bp upstream of the UMI in fasta format.'  
+--probe_frame_down 'A short sequence (eg 10 bp) flanking the frame (downstream) in fasta format.  
+--probe_frame_up '(eg 10 bp) flanking the frame (upstream) in fasta format.  
+--clusterfolder 'path to clusterfolder generated after using clustering_automator.py'  
 
 ### Epistasis Graph Analysis
 
