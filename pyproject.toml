@@ -28,6 +28,8 @@ dependencies = [
     "matplotlib>=3.9.0,<4",
     "pandas>=2.2.2,<3",
     "networkx>=3.3,<4",
+    "fair-esm>=2.0.0,<3",
+    "seaborn>=0.13.2,<1",
 ]
 
 [project.urls]
