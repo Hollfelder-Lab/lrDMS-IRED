@@ -1,10 +1,11 @@
 # Microdroplet screening rapidly profiles a biocatalyst to enable its AI-assisted engineering
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.5123296.svg)](TODO)  <a target="_blank" href="https://colab.research.google.com/drive/16rXKgbGXBBsHvS_2V84WbfKsJYf9lO4Q">
+[![bioRxiv](https://img.shields.io/badge/bioRxiv-10.1101/2024.04.08.588565-b31b1b.svg)](https://www.biorxiv.org/content/10.1101/2024.04.08.588565)
+[![Devices](https://img.shields.io/badge/%F0%9F%92%A7%20OpenWetWare-DropBase%20lrDMS%20chips-blue?style=flat&labelColor=gray&color=lightblue&link=https%3A%2F%2Fopenwetware.org%2Fwiki%2FDropBase%3ADevices)](https://openwetware.org/wiki/DropBase:Devices)
+[![Data](https://zenodo.org/badge/doi/10.5281/zenodo.5123296.svg)](TODO)  
+[![Published paper](https://img.shields.io/badge/%F0%9F%93%83_full_paper-pdf-green)](https://www.biorxiv.org/content/10.1101/2024.04.08.588565.full.pdf)
+<a target="_blank" href="https://colab.research.google.com/drive/16rXKgbGXBBsHvS_2V84WbfKsJYf9lO4Q">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
-[![Static Badge](https://img.shields.io/badge/%F0%9F%92%A7%20OpenWetWare-DropBase%20lrDMS%20chips-blue?style=flat&labelColor=gray&color=lightblue&link=https%3A%2F%2Fopenwetware.org%2Fwiki%2FDropBase%3ADevices)](https://openwetware.org/wiki/DropBase:Devices)
-[![bioRxiv](https://img.shields.io/badge/bioRxiv-TODO-b31b1b.svg)](https://www.biorxiv.org/content/TODO)
-[![Static Badge](https://img.shields.io/badge/%F0%9F%93%83_full_paper-TODO-green)](TODO)
+</a> 
 
 
 
