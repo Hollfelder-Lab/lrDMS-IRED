@@ -22,7 +22,12 @@ classifiers=[
 
 dependencies = [
     # TODO: add dependencies
-    "loguru>=0.7.2",
+    "loguru>=0.7.2,<1",
+    "numpy>=1.21.2,<2",
+    "biotite>=0.40.0,<1",
+    "matplotlib>=3.9.0,<4",
+    "pandas>=2.2.2,<3",
+    "networkx>=3.3,<4",
 ]
 
 [project.urls]
