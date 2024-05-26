@@ -12,7 +12,13 @@ This repo contains the processing scripts, code and evaluation methods for the p
 
 ## 📦 Installation
 
-TODO
+**Via github**:
+
+```bash
+git clone https://github.com/Hollfelder-Lab/lrDMS-IRED.git
+cd lrDMS-IRED
+pip install .
+```
 
 ## 🚀 Usage
 
