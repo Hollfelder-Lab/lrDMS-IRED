@@ -12,6 +12,7 @@ import pandas as pd
 from loguru import logger
 
 from lrdms.utils.mutations import compute_mutation_coverage_at_order, NATURAL_AA
+from lrdms.utils.common import exists, default
 
 from src.data.split import plot_splits, split_dataset
 
@@ -190,13 +191,13 @@ class DirectedEvolutionDataset:
         if ax is None:
             fig, ax = plt.subplots(figsize=(20, 5), dpi=300)
             ax.set_title(title)
-        if ylim is not None:
+        if exists(ylim):
             ax.set_ylim(ylim)
 
         # Set color map
-        if hue is not None:
+        if exists(hue):
             assert len(hue) == self.sequence_length, "Hue must be the same length as the sequence"
-            if cnorm is not None:
+            if exists(cnorm):
                 pass
             elif hue.min() < 0 and hue.max() > 0:
                 # set the color map to be diverging
@@ -252,7 +253,7 @@ class DirectedEvolutionDataset:
             )
         fig, ax = plt.subplots(figsize=(20, 5))
         bottom = np.zeros(self.sequence_length)  # for stacking the bars
-        df = self.data.query(query) if query is not None else self.data
+        df = default(self.data.query(query), self.data)
         max_cover = int(df[f"mutation_coverage_{order}"].max())
         for o in range(max_cover + 1):
             selection = f"mutation_coverage_{order} == {o}"
