@@ -2,7 +2,7 @@
 
 [![bioRxiv](https://img.shields.io/badge/bioRxiv-10.1101/2024.04.08.588565-b31b1b.svg)](https://www.biorxiv.org/content/10.1101/2024.04.08.588565)
 [![Devices](https://img.shields.io/badge/%F0%9F%92%A7%20OpenWetWare-DropBase%20lrDMS%20chips-blue?style=flat&labelColor=gray&color=lightblue&link=https%3A%2F%2Fopenwetware.org%2Fwiki%2FDropBase%3ADevices)](https://openwetware.org/wiki/DropBase:Devices)
-[![Data](https://zenodo.org/badge/doi/10.5281/zenodo.5123296.svg)](TODO)  
+[![Zenodo](https://img.shields.io/badge/zenodo-10.1101%2F2024.04.08.588565-blue?style=flat&link=https%3A%2F%2Fzenodo.org%2Frecords%2F11357236)](https://zenodo.org/records/11357236)
 [![Published paper](https://img.shields.io/badge/%F0%9F%93%83_full_paper-pdf-green)](https://www.biorxiv.org/content/10.1101/2024.04.08.588565.full.pdf)
 <a target="_blank" href="https://colab.research.google.com/drive/16rXKgbGXBBsHvS_2V84WbfKsJYf9lO4Q">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -69,7 +69,7 @@ After having opened the notebook in Colab, the python scripts `analysis_utils.py
 
 ## 🧪 Data
 
-Our data is available on Zenodo: [![DOI](https://zenodo.org/badge/doi/TODO/zenodo.TODO.svg)](TODO)
+Our data is available in the [`data`](data) folder and on Zenodo: [![Zenodo](https://img.shields.io/badge/zenodo-10.1101%2F2024.04.08.588565-blue?style=flat&link=https%3A%2F%2Fzenodo.org%2Frecords%2F11357236)](https://zenodo.org/records/11357236)
 
 ## 📜 License
 
