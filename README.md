@@ -25,7 +25,7 @@ pip install .
 ## 🚀 Usage
 
 ### UMIC-seq2 raw data processing
-The pipeline scripts for processing the raw UMIC-seq2 data detailed in [`scripts`](scripts). The output of the processing pipeline is a `.csv` file containing the fitness scores for individual sequences. For convenience, the processed data is also provided in the [`data`](data) folder as `srired_active_data.csv`. The pipeline is adapted from [![Zurek et al 2020](https://www.nature.com/articles/s41467-020-19687-9) to allow for (i) the processing of larger datasets via use of mmseqs2 for clustering and (ii) incorporation of the UMI sequence in polished reads for use in long-read deep mutational scanning. 
+The pipeline scripts for processing the raw UMIC-seq2 data detailed in [`scripts`](scripts). The output of the processing pipeline is a `.csv` file containing the fitness scores for individual sequences. For convenience, the processed data is also provided in the [`data`](data) folder as `srired_active_data.csv`. The pipeline is adapted from ![Zurek et al 2020](https://www.nature.com/articles/s41467-020-19687-9) to allow for (i) the processing of larger datasets via use of mmseqs2 for clustering and (ii) incorporation of the UMI sequence in polished reads for use in long-read deep mutational scanning. 
 
 ### Epistasis Graph Analysis
 
