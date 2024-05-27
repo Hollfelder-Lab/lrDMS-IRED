@@ -13,8 +13,6 @@ import numpy as np
 
 parser = argparse.ArgumentParser(description="""Variant identity file generator: Creating VIF file for DiMSum pipeline from Nanopore polishing output""")
 
-
-#some arguments copied from Paul's UMI extract that could be helpful
 parser.add_argument('-T', '--threads', type=int, default=0, help='Number of threads to execute in parallel. Defaults to CPU count.')
 parser.add_argument('--probe_UMI_down', help='A short sequence (eg 14 bp) beginning 4 bp downstream of the UMI in fasta format.', required=True)
 parser.add_argument('--probe_UMI_up', help='A short sequence (eg 14 bp) ending 4 bp upstream of the UMI in fasta format.', required=True)
