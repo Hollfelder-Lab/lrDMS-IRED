@@ -1,1 +1,75 @@
-TODO
+[project]
+name = "lrdms"
+version = "0.0.1"
+description = "Tools for working with (long-read) deep mutational scanning data"
+readme = "README.md"
+requires-python = ">= 3.10"
+license = { file = "LICENSE" }
+keywords = [
+    'artificial intelligence',
+    'machine learning',
+    'protein engineering',
+    'enzyme engineering',
+    'microfluidics',
+    'deep mutational scanning',
+]
+
+classifiers=[
+    'Development Status :: 3 - Alpha',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python :: 3.10',
+]
+
+dependencies = [
+    # TODO: add dependencies
+    "loguru>=0.7.2,<1",
+    "numpy>=1.21.2,<2",
+    "biotite>=0.40.0,<1",
+    "matplotlib>=3.9.0,<4",
+    "pandas>=2.2.2,<3",
+    "networkx>=3.3,<4",
+    "fair-esm>=2.0.0,<3",  # TODO: possibly move to optional
+    "seaborn>=0.13.2,<1",
+    "scikit-learn<=1.5.0,<2",
+    "springcraft>=0.3.0,<1",
+    "tqdm>=4.62.3,<5",
+    "biopython>=1.83,<2",  # TODO: possibly remove
+    "plotstyle @ git+https://github.com/Croydon-Brixton/plotstyle.git@938b58677bae444c8117cfc6010b1d88b0ce4a2b"
+]
+
+[project.urls]
+Homepage = "https://hollfelder.bioc.cam.ac.uk/"
+Repository = "https://github.com/Hollfelder-Lab/lrDMS-IRED"
+Paper = "https://www.biorxiv.org/content/10.1101/2024.04.08.588565"
+
+[project.optional-dependencies]
+full = [
+    "fair-esm>=2.0.0,<3"
+]
+dev = [
+    "ruff==0.4.5",
+    "lrdms[full]"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
+
+[tool.ruff]
+line-length = 120
+extend-include = ["*.ipynb"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lrdms"]
+include = ["data/**"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"data" = "lrdms/_data"  # include data files in the wheel when `pip install`-ing
