@@ -28,12 +28,13 @@ dependencies = [
     "matplotlib>=3.9.0,<4",
     "pandas>=2.2.2,<3",
     "networkx>=3.3,<4",
-    "fair-esm>=2.0.0,<3",
+    "fair-esm>=2.0.0,<3",  # TODO: possibly move to optional
     "seaborn>=0.13.2,<1",
     "scikit-learn<=1.5.0,<2",
     "springcraft>=0.3.0,<1",
     "tqdm>=4.62.3,<5",
-    "plotstyle @ git+https://github.com/Croydon-Brixton/plotstyle.git@87088ebadf78463744a794ec66a98eac295ad708"
+    "biopython>=1.83,<2",  # TODO: possibly remove
+    "plotstyle @ git+https://github.com/Croydon-Brixton/plotstyle.git@938b58677bae444c8117cfc6010b1d88b0ce4a2b"
 ]
 
 [project.urls]

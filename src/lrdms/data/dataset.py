@@ -13,8 +13,7 @@ from loguru import logger
 
 from lrdms.utils.mutations import compute_mutation_coverage_at_order, NATURAL_AA
 from lrdms.utils.common import exists, default
-
-from src.data.split import plot_splits, split_dataset
+from lrdms.data.split import plot_splits, split_dataset
 
 
 class DirectedEvolutionDataset:
