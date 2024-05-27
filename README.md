@@ -25,7 +25,8 @@ pip install .
 ### UMIC-seq2 suite for analysis of Oxford Nanopore data
 
 **Extraction of UMIs from basecalled Nanopore reads for clustering**
-Use the following commands to run the script 'UMI_extract.py':  
+Use the following commands to run the script 'UMI_extract.py': 
+``` 
 -T Number of threads to execute in parallel. Defaults to CPU count.  
 -v Gives Version
 -i Provide basecalled reads in fastq format.  
@@ -34,6 +35,7 @@ Use the following commands to run the script 'UMI_extract.py':
 --umi_loc Location of UMI in reference to the probe. Upstream (up) or downstream (down).  
 --umi_len Length of the UMI to be extracted.  
 --min_probe_score Minimal alignment score of probe for processing. Defaults to length of probe sequence.  
+```
 
 **Using the mmseqs2 output to generate a .fasta files for individual clusters**  
 Use the following commands to run the script 'tsv2fasta.py':  
