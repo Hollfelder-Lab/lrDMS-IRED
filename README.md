@@ -25,7 +25,7 @@ pip install .
 ## 🚀 Usage
 
 ### UMIC-seq2 raw data processing
-The pipeline scripts for processing the raw UMIC-seq2 data detailed in [`scripts`](scripts). The output of the processing pipeline is a `.csv` file containing the read counts and fitness scores for individual sequences. For convenience, the processed data is also provided in the [`data`](data) folder as `srired_active_data.csv`.
+The pipeline scripts for processing the raw UMIC-seq2 data detailed in [`scripts`](scripts). The output of the processing pipeline is a `.csv` file containing the fitness scores for individual sequences. For convenience, the processed data is also provided in the [`data`](data) folder as `srired_active_data.csv`. The pipeline is adapted from [![Zurek et al 2020](https://www.nature.com/articles/s41467-020-19687-9) to allow for (i) the processing of larger datasets via use of mmseqs2 for clustering and (ii) incorporation of the UMI sequence in polished reads for use in long-read deep mutational scanning. 
 
 ### Epistasis Graph Analysis
 
@@ -33,7 +33,7 @@ The easiest way to run the scripts is via Google Colab. The Jupyter notebook Epi
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Hollfelder-Lab/lrDMS-IRED/blob/main/notebooks/Epistasis_analysis.ipynb)
 
-After having opened the notebook in Colab, the python scripts `analysis_utils.py` and `plotting_utils.py` from the src folder need to be uploaded. These scripts contain the core functions for the analyses and plots to be carried out. Also, the csv file `MePy_merge_filtered_260923.csv` from the data folder containing the DMS data along side the distance matrix npy file `min_dimer_distances.npy` must be uploaded
+After having opened the notebook in Colab, the python scripts `analysis_utils.py` and `plotting_utils.py` from the src folder need to be uploaded. These scripts contain the core functions for the analyses and plots to be carried out. Also, the csv file `srired_active_data.csv` from the data folder containing the DMS data along side the distance matrix npy file `min_dimer_distances.npy` must be uploaded
 
 ## 🧪 Data
 
