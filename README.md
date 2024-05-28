@@ -24,8 +24,12 @@ pip install .
 
 ## 🚀 Usage
 
-### UMIC-seq2 raw data processing
-The pipeline scripts for processing the raw UMIC-seq2 data detailed in [`scripts`](scripts). The output of the processing pipeline is a `.csv` file containing the fitness scores for individual sequences. For convenience, the processed data is also provided in the [`data`](data) folder as `srired_active_data.csv`. The pipeline is adapted from ![Zurek et al 2020](https://www.nature.com/articles/s41467-020-19687-9) to allow for (i) the processing of larger datasets via use of mmseqs2 for clustering and (ii) incorporation of the UMI sequence in polished reads for use in long-read deep mutational scanning. 
+### Raw data processing using the UMIC-seq2 suite and DiMSum
+The UMIC-seq2 pipeline is adapted from [Zurek et al 2020](https://www.nature.com/articles/s41467-020-19687-9) to allow for (i) the processing of larger datasets via use of mmseqs2 for clustering and (ii) incorporation of the UMI sequence in polished reads for use in long-read deep mutational scanning (lrDMS). Following the steps outlined in [`scripts`](scripts), raw Oxford Nanopore data can be used to generate a variant identifyer file 'VIF' that can be fed into the [DiMSum pipeline](https://github.com/lehner-lab/DiMSum). The provided scripts and outlined pipeline can also be used to analyse amplicon Oxford Nanopore data without downstream use of the file for lrDMS.   
+If lrDMS is conducted, next-gerneration sequencing reads of the UMI region before and after screening are used to calculate fitness score and the VIF is used to link UMI and variant identity. The output of the processing pipeline is a `.csv` file containing the fitness scores for individual sequences. For convenience, the processed data is also provided in the [`data`](data) folder as `srired_active_data.csv`. This data can then be used for combinability and mutability analysis and machine learning.
+
+### Generation of a mutational profile: Combinabiliy and mutability
+ToDo: provide script that gives profile shown in Figure S17. 
 
 ### Epistasis Graph Analysis
 
