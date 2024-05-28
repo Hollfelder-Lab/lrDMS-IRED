@@ -67,6 +67,9 @@ The core analyses is given in `epistasis_analysis.py` and can be run via followi
 python3 epistasis_analysis.py
 ```
 
+## Other repository
+Another repository documenting this code is (https://github.com/fweberling/epistasis)
+
 ## License 
 
 [MIT](https://choosealicense.com/licenses/mit/)
