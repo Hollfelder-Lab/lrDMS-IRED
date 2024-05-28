@@ -1,4 +1,4 @@
-# Structural epistasis analysis
+# Combinability and epistasis analysis
 
 Scripts to preprocess deep mutational scanning (DMS) data. The data are analysed for combinability of mutations and the effect of epistasis.
 
