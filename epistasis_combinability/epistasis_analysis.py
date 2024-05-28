@@ -160,6 +160,18 @@ plt.figure()
 nx.draw(structural_epistasis_graph, pos, with_labels=True, font_weight='bold')
 plt.show()
 
+"""Given the graph, a csv file is created that contains the list of edges that are the foundation for the plot in Figure 3 D."""
+
+graph_edges_list = list(structural_epistasis_graph.edges)
+
+# Create a list of column names
+col_names = ["AA Residue 1", "AA Residue 2"]
+
+# Create a pandas dataframe from the list of tuples
+df = pd.DataFrame(graph_edges_list, columns=col_names)
+
+df.to_csv('graph_edges_list_1_-1.csv')
+
 """## Epistasis graph with $k_{obs} = 1$ and $k_{exp} = 1$
 
 Given the user defined multiples $k_{obs}$ of the standard deviation of observed fitness $\sigma_{obs}$ and $k_{exp}$ of the expected fitness $\sigma_{exp}$, a list of at residue positions is created which are at least double mutations. Here, $k_{obs} = 1$ and $k_{exp} = 1$ are chosen such that positively epistatic, combinable mutations are analysed.
@@ -201,7 +213,7 @@ pos_comb_higher_mut_pos_aa = np.stack((pos_comb_higher_mut_pos, pos_comb_higher_
 
 pos_per_aa_dict = plot_node_degree_aa_distribution(pos_comb_higher_mut_pos_aa)
 
-"""For the epistasis graph $\mathcal{G}={V, E}$, the position of the nodes is inferred from a distance matrix that stores the minimal distances of residues of the IRED dimer. This distance matrix reduced to two dimensions via principal component analysis. These two dimensions are then used as coordinates of the nodes of the combinability graph. Thus, a node's position represents how close a residue position is to all others. The plot corresponds to Figure S8 C and is the foundation of Figure 3 E."""
+"""For the epistasis graph $\mathcal{G}={V, E}$, the position of the nodes is inferred from a distance matrix that stores the minimal distances of residues of the IRED dimer. This distance matrix reduced to two dimensions via principal component analysis. These two dimensions are then used as coordinates of the nodes of the combinability graph. Thus, a node's position represents how close a residue position is to all others. The plot corresponds to Figure S8 C and is the foundation of Figure 3 E (for that `minimal_count_per_node = 5` to filter out nodes with less than 5 edges)."""
 
 # Load distance matrix
 dist_matrix = np.load("min_dimer_distances.npy")
@@ -216,3 +228,15 @@ pos = nx.get_node_attributes(structural_epistasis_graph, 'pos')
 plt.figure()
 nx.draw(structural_epistasis_graph, pos, with_labels=True, font_weight='bold')
 plt.show()
+
+"""Given the graph created using `minimal_count_per_node = 5`, a csv file is created that contains the list of edges that are the foundation for the plot in Figure 3 E."""
+
+graph_edges_list = list(structural_epistasis_graph.edges)
+
+# Create a list of column names
+col_names = ["AA Residue 1", "AA Residue 2"]
+
+# Create a pandas dataframe from the list of tuples
+df = pd.DataFrame(graph_edges_list, columns=col_names)
+
+df.to_csv('graph_edges_list_1_1.csv')
