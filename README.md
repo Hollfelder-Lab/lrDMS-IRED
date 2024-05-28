@@ -31,7 +31,7 @@ If lrDMS is conducted, next-gerneration sequencing reads of the UMI region befor
 ### Generation of a mutational profile: Combinabiliy and mutability
 ToDo: provide script that gives profile shown in Figure S17. 
 
-### Epistasis Graph Analysis
+### Combinability and Epistasis
 
 The documentation for the analysis of epistasis is in the `epistasis` folder.
 
