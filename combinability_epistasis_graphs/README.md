@@ -73,3 +73,7 @@ python3 main.py
 ## License 
 
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Other repository
+
+The code is based on [epistasis](https://github.com/fweberling/epistasis)
