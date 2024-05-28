@@ -44,7 +44,9 @@ Paper = "https://www.biorxiv.org/content/10.1101/2024.04.08.588565"
 
 [project.optional-dependencies]
 full = [
-    "fair-esm>=2.0.0,<3"
+    "fair-esm>=2.0.0,<3",
+    "dill>=0.3.8,<1",
+    "torch>=2.1.0,<3"
 ]
 dev = [
     "ruff==0.4.5",
