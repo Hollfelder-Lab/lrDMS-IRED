@@ -12,7 +12,7 @@ reference = "MRDTDVTVLGLGLMGQALAGAFLKDGHATTVWNRSEGKAGQLAEQGAVLASSARDAAEASPLVVVCV
 
 ## Data
 
-The DMS data are stored in csv files. The IRED DMS data csv files are used in this repository is:
+The DMS data are stored as csv file. The IRED DMS data csv file used in this repository is:
 
 * `srired_active_data.csv`
 
@@ -70,7 +70,7 @@ pip install networkx
 * matplotlib >= 3.6.0
 
 ```commandline
-pip install -U pip
+pip install -U matplotlib 
 ```
 
 #### Running core analyses
