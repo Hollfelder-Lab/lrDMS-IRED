@@ -52,6 +52,14 @@ def compute_combinability_v1(
     """
     Calculates the combinability of each position in the protein sequence based on the provided data.
 
+    In this version of combinability, we count the number of higher-order mutations that contain
+    a mutation at a given position and add `+1` to the count of positive combinations if the higher
+    order mutation is better than the wild-type and `-1` if it is worse.
+
+    This definition was used in the original double-mutant model that we took to the lab, but
+    we would deprecate it in favour of version 2 below which is more robust by considering uncertainties
+    and comparing to the additive fitness of the singles mutations.
+
     Args:
     - data (pd.DataFrame): A DataFrame containing the variant data.
     - seq_len (int): The length of the protein sequence.
@@ -99,6 +107,35 @@ def compute_combinability_v2(
     fitness_std_col: str = "sigma",
     fitness_thres: float = 0.0,
 ) -> np.ndarray:
+    """
+    Calculates the combinability of each position in the protein sequence based on the provided data.
+
+    This definition of combinability follows the formula in the paper and is more robust than
+    combinability v1 by considering uncertainties and comparing to the additive fitness of the
+    singles mutations.
+
+    NOTE: This definition was used for rational designs and is recommended for general use, but was
+    not used in the version of the double-mutant model that we took to the lab.
+
+    Args:
+        data (pd.DataFrame): A DataFrame containing the variant data.
+        seq_len (int): The length of the protein sequence.
+        mutorder_col (str, optional): The name of the column containing the mutation order data.
+            Defaults to "n_mut".
+        variant_col (str, optional): The name of the column containing the variant data.
+            Defaults to "variant_obj".
+        fitness_col (str, optional): The name of the column containing the fitness data.
+            Defaults to "fitness".
+        fitness_std_col (str, optional): The name of the column containing the standard deviation
+            of the fitness data. Defaults to "sigma".
+        fitness_thres (float, optional): The threshold for the fitness value to consider a mutation
+            as better than the wild-type. Defaults to 0.0.
+
+    Returns:
+        np.ndarray: A 1D numpy array of shape (seq_len,) containing the combinability of each position
+            in the protein sequence.
+    """
+
     # initialize the combinability array
     combinability = np.zeros(seq_len, dtype=np.int32)  # [l]
 
@@ -131,11 +168,13 @@ def compute_combinability_v2(
             additive_sigma = 0
 
         # ... if fitness not confidently higher than additive fitness, skip
-        if (fitness - additive_fitness) < -sigma:
+        if (fitness - additive_fitness) < -additive_sigma:
             continue
         else:
             for mut in variant.mutations:
-                combinability[mut.pos] += len(variant.mutations)  # 0-indexed
+                # NOTE: We subract 1 because we do not count the mutation itself
+                #  (corresponds to self-loop in epistatic graph)
+                combinability[mut.pos] += len(variant.mutations) - 1  # 0-indexed
     return combinability
 
 
