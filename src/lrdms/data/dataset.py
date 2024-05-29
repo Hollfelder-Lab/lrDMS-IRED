@@ -206,7 +206,7 @@ class DirectedEvolutionDataset:
                 cnorm = mpl.colors.Normalize(vmin=hue.min(), vmax=hue.max())
             sm = plt.cm.ScalarMappable(cmap=cmap, norm=cnorm)
             sm.set_array([])
-            cmap = plt.cm.get_cmap(cmap)
+            cmap = plt.get_cmap(cmap)
             color = cmap(cnorm(hue))
 
         # Bar plot along the sequence values
@@ -242,6 +242,7 @@ class DirectedEvolutionDataset:
         return ax
 
     def plot_mutation_coverage(self, query: str = None, order=1):
+        # Check if the mutation coverage for the given order exists
         if f"mutation_coverage_{order}" not in self.data.columns:
             raise ValueError(
                 f"Mutation coverage for order {order} not found. Please run `self.compute_mutation_coverage(orders=[{order}])` first."
@@ -250,9 +251,14 @@ class DirectedEvolutionDataset:
             raise ValueError(
                 "No higher-order mutants found. Coverage by mutations is only defined for higher-order mutants."
             )
+
+        if exists(query):
+            df = self.data.query(query)
+        else:
+            df = self.data
+
         fig, ax = plt.subplots(figsize=(20, 5))
         bottom = np.zeros(self.sequence_length)  # for stacking the bars
-        df = default(self.data.query(query), self.data)
         max_cover = int(df[f"mutation_coverage_{order}"].max())
         for o in range(max_cover + 1):
             selection = f"mutation_coverage_{order} == {o}"
