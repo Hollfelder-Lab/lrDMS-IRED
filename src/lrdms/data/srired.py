@@ -23,7 +23,7 @@ class IRED(DirectedEvolutionDataset):
     @property
     def raw_data(self):
         if self._raw_data is None:
-            raw_data = pd.read_csv(self.dataset_path, index_col=0)
+            raw_data = pd.read_csv(self.dataset_path, index_col=None)
             raw_data["aa_len"] = raw_data["aa_seq"].str.len()
             self._raw_data = raw_data
         return self._raw_data
@@ -48,6 +48,7 @@ class IRED(DirectedEvolutionDataset):
         logger.info("Remove %d NaN fitness values" % fitness_is_na.sum())
         data = data[~fitness_is_na]
 
+        # Remove sequences not ending in stop
         ends_in_stop = data.aa_seq.str.endswith("*")
         logger.info("Remove %d sequences not ending in stop" % (~ends_in_stop).sum())
         data = data[ends_in_stop]
