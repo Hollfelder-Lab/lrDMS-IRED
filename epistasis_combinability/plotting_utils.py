@@ -38,7 +38,7 @@ def plot_obs_fitness_heatmap(reference_seq, double_mut_seqs: list, obs_fitness_s
         obs_fitness_heatmap[index_pair[0] - 1, index_pair[1] - 1] = score_of_index_pair
         obs_fitness_heatmap[index_pair[1] - 1, index_pair[0] - 1] = score_of_index_pair
 
-    plt.imshow(obs_fitness_heatmap, cmap='viridis', interpolation='nearest')
+    plt.imshow(obs_fitness_heatmap, cmap="viridis", interpolation="nearest")
     plt.colorbar()
     plt.title("Fitness Heatmap")
     plt.xlabel("Mutated Amino Acid Position")
@@ -46,7 +46,9 @@ def plot_obs_fitness_heatmap(reference_seq, double_mut_seqs: list, obs_fitness_s
     plt.show()
 
 
-def plot_node_degree_distribution(epistasis_graph: nx.Graph, frequency: bool = False, sequences: list = [], reference=[]):
+def plot_node_degree_distribution(
+    epistasis_graph: nx.Graph, frequency: bool = False, sequences: list = [], reference=[]
+):
     """
     Given an epistasis graph, plot the node degree distribution (# epistatic interaction per amino acid position) for
     each node (amino acid position)
@@ -58,8 +60,9 @@ def plot_node_degree_distribution(epistasis_graph: nx.Graph, frequency: bool = F
     :return: None
     """
 
-    node_degree_list = np.array(list(map(list, sorted(epistasis_graph.degree, key=lambda x: x[1], reverse=True))),
-                                dtype=float)
+    node_degree_list = np.array(
+        list(map(list, sorted(epistasis_graph.degree, key=lambda x: x[1], reverse=True))), dtype=float
+    )
 
     if frequency:
         full_mut_pos_list = []
@@ -127,7 +130,7 @@ def plot_node_degree_aa_distribution(mut_aa: np.ndarray) -> dict:
     plt.figure(figsize=[15, 3])
     stored_value = np.zeros(292)
     idx = 0
-    cmap = plt.get_cmap('nipy_spectral')
+    cmap = plt.get_cmap("nipy_spectral")
     slicedCM = cmap(np.linspace(0, 1, len(unique_aa)))
     for a in range(10, 290, 10):
         plt.axvline(x=a, color="k", alpha=0.6, linewidth=0.3)
@@ -187,6 +190,7 @@ def plot_mutation_distribution(sequences: list, reference: str):
 # ln_W_a_b_list -> W_observed_list
 # e -> epistatic_score_list
 
+
 def plot_epistasis_model(exp_fitness_scores: list, obs_fitness_scores: list, epistatic_scores: list):
     """
     Plots the epistasis model for all mutants as scatter plot
@@ -207,7 +211,7 @@ def plot_epistasis_model(exp_fitness_scores: list, obs_fitness_scores: list, epi
     plt.ylabel("Observed fitness scores")
     # plt.ylim([-0.5,0.9])
     # plt.xlim([-0.95,0.55])
-    plt.colorbar(ticks=np.arange(-2.5, 2.5, 0.2), label=u'\u03B5');
+    plt.colorbar(ticks=np.arange(-2.5, 2.5, 0.2), label="\u03b5")
     plt.clim(-2.5, 2.5)
     # plt.savefig("correlation_calculated_double_double_epsilon.pdf", bbox_inches='tight')
     plt.show()

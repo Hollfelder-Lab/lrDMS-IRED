@@ -12,9 +12,21 @@ Original file is located at
 import pandas as pd
 from matplotlib import pyplot as plt
 import networkx as nx
-from analysis_utils import preprocessing, double_mut_pos, epistasis_graph, epistatic_triangles, comb_pos_mut, construct_structural_epistasis_graph
-from plotting_utils import plot_node_degree_distribution, plot_node_degree_aa_distribution, \
-    plot_mutation_distribution, plot_epistasis_model, plot_obs_fitness_heatmap
+from analysis_utils import (
+    preprocessing,
+    double_mut_pos,
+    epistasis_graph,
+    epistatic_triangles,
+    comb_pos_mut,
+    construct_structural_epistasis_graph,
+)
+from plotting_utils import (
+    plot_node_degree_distribution,
+    plot_node_degree_aa_distribution,
+    plot_mutation_distribution,
+    plot_epistasis_model,
+    plot_obs_fitness_heatmap,
+)
 import numpy as np
 import itertools
 import scipy as sp
@@ -58,11 +70,13 @@ preprocessed_data = preprocessing(data_frame, num_mut, reference)
 for i in range(2, num_mut + 1):
     locals()["mut_" + str(i) + "_sequence_list"] = preprocessed_data[str(i) + " Mutation"]["Sequence of mutants"]
     locals()["mut_" + str(i) + "_W_observed_list"] = preprocessed_data[str(i) + " Mutation"]["Observed fitness"]
-    locals()["mut_" + str(i) + "_W_observed_std_list"] = preprocessed_data[str(i) + " Mutation"]["Observed std of " \
-                                                                                                 "fitness"]
+    locals()["mut_" + str(i) + "_W_observed_std_list"] = preprocessed_data[str(i) + " Mutation"][
+        "Observed std of " "fitness"
+    ]
     locals()["mut_" + str(i) + "_W_expected_list"] = preprocessed_data[str(i) + " Mutation"]["Expected fitness"]
-    locals()["mut_" + str(i) + "_W_expected_std_list"] = preprocessed_data[str(i) + " Mutation"]["Expected std of " \
-                                                                                                 "fitness"]
+    locals()["mut_" + str(i) + "_W_expected_std_list"] = preprocessed_data[str(i) + " Mutation"][
+        "Expected std of " "fitness"
+    ]
     locals()["mut_" + str(i) + "_epistatic_score_list"] = preprocessed_data[str(i) + " Mutation"]["Epistatic score"]
 
 # Lists of sequences, observed and expected fitness scores, and epistatic scores for all mutation orders i.e. 2 - 5
@@ -76,13 +90,16 @@ full_mut_epistatic_score_list = []
 for mut_num_i in range(2, num_mut + 1):
     full_mut_sequence_list = full_mut_sequence_list + locals()["mut_" + str(mut_num_i) + "_sequence_list"]
     full_mut_W_observed_list = full_mut_W_observed_list + locals()["mut_" + str(mut_num_i) + "_W_observed_list"]
-    full_mut_W_observed_std_list = full_mut_W_observed_std_list + locals()[
-        "mut_" + str(mut_num_i) + "_W_observed_std_list"]
+    full_mut_W_observed_std_list = (
+        full_mut_W_observed_std_list + locals()["mut_" + str(mut_num_i) + "_W_observed_std_list"]
+    )
     full_mut_W_expected_list = full_mut_W_expected_list + locals()["mut_" + str(mut_num_i) + "_W_expected_list"]
-    full_mut_W_expected_std_list = full_mut_W_expected_std_list + locals()[
-        "mut_" + str(mut_num_i) + "_W_expected_std_list"]
-    full_mut_epistatic_score_list = full_mut_epistatic_score_list + locals()[
-        "mut_" + str(mut_num_i) + "_epistatic_score_list"]
+    full_mut_W_expected_std_list = (
+        full_mut_W_expected_std_list + locals()["mut_" + str(mut_num_i) + "_W_expected_std_list"]
+    )
+    full_mut_epistatic_score_list = (
+        full_mut_epistatic_score_list + locals()["mut_" + str(mut_num_i) + "_epistatic_score_list"]
+    )
 
 """## Epistasis model
 
@@ -91,7 +108,9 @@ The epistasis model is created for the order of mutations that has been selected
 
 # Plot epistasis model for mutations 2 - 5
 r_d_s, p_d_s = sp.stats.pearsonr(full_mut_W_expected_list, full_mut_W_observed_list)
-print(f"correlation calculated double mutations fitness / double mutation fitness: pearson r = {r_d_s} with p = {p_d_s}")
+print(
+    f"correlation calculated double mutations fitness / double mutation fitness: pearson r = {r_d_s} with p = {p_d_s}"
+)
 plot_epistasis_model(full_mut_W_expected_list, full_mut_W_observed_list, full_mut_epistatic_score_list)
 
 """A Heatmap showing pairwise combinatorial fitness effects convoluted from data from variants with mutations of order 2 to 5. The $x$ and $y$ axis display the mutated amino acid positions."""
@@ -110,9 +129,16 @@ k_obs = 1
 k_exp = -1
 
 # List of all positive / combinable mutations
-comb_pos_mut_pos_list, comb_pos_mut_aa_list = comb_pos_mut(full_mut_epistatic_score_list, full_mut_W_observed_list,
-                                                           full_mut_W_expected_list, full_mut_W_observed_std_list,
-                                                           full_mut_sequence_list, reference, k_obs, k_exp)
+comb_pos_mut_pos_list, comb_pos_mut_aa_list = comb_pos_mut(
+    full_mut_epistatic_score_list,
+    full_mut_W_observed_list,
+    full_mut_W_expected_list,
+    full_mut_W_observed_std_list,
+    full_mut_sequence_list,
+    reference,
+    k_obs,
+    k_exp,
+)
 
 """This list of is then used to construct a combinability graph $\mathcal{G}=(V,E)$ where the set of nodes $V$ are residue positions and the set of edges $E$ display the combinability of two residue positions.
 
@@ -123,8 +149,8 @@ comb_pos_mut_pos_list, comb_pos_mut_aa_list = comb_pos_mut(full_mut_epistatic_sc
 pos_comb_mut_edges = []
 pos_comb_mut_aa = []
 for higher_ord_mut in range(0, len(comb_pos_mut_pos_list)):
-    higher_order_mut_list = (list(map(list, itertools.combinations(comb_pos_mut_pos_list[higher_ord_mut], 2))))
-    higher_order_mut_aa_list = (list(map(list, itertools.combinations(comb_pos_mut_aa_list[higher_ord_mut], 2))))
+    higher_order_mut_list = list(map(list, itertools.combinations(comb_pos_mut_pos_list[higher_ord_mut], 2)))
+    higher_order_mut_aa_list = list(map(list, itertools.combinations(comb_pos_mut_aa_list[higher_ord_mut], 2)))
     if len(higher_order_mut_list) == 2:
         pos_comb_mut_edges.append(higher_order_mut_list)
         pos_comb_mut_aa.append(higher_order_mut_aa_list)
@@ -137,7 +163,8 @@ for higher_ord_mut in range(0, len(comb_pos_mut_pos_list)):
 
 # Node degree and amino acid distribution
 pos_comb_higher_mut_pos = np.concatenate(
-    (np.array(pos_comb_mut_edges)[:, 0], np.array(pos_comb_mut_edges)[:, 1].astype(int)), axis=0)
+    (np.array(pos_comb_mut_edges)[:, 0], np.array(pos_comb_mut_edges)[:, 1].astype(int)), axis=0
+)
 pos_comb_higher_mut_mut_aa = np.concatenate((np.array(pos_comb_mut_aa)[:, 0], np.array(pos_comb_mut_aa)[:, 1]), axis=0)
 
 pos_comb_higher_mut_pos_aa = np.stack((pos_comb_higher_mut_pos, pos_comb_higher_mut_mut_aa), axis=1)
@@ -153,11 +180,13 @@ dist_matrix = np.load("min_dimer_distances.npy")
 minimal_count_per_node = 0
 
 # Combinability graph for all mutants 2 - 5
-structural_epistasis_graph = construct_structural_epistasis_graph(pos_comb_mut_edges, minimal_count_per_node, dist_matrix)
-pos = nx.get_node_attributes(structural_epistasis_graph, 'pos')
+structural_epistasis_graph = construct_structural_epistasis_graph(
+    pos_comb_mut_edges, minimal_count_per_node, dist_matrix
+)
+pos = nx.get_node_attributes(structural_epistasis_graph, "pos")
 
 plt.figure()
-nx.draw(structural_epistasis_graph, pos, with_labels=True, font_weight='bold')
+nx.draw(structural_epistasis_graph, pos, with_labels=True, font_weight="bold")
 plt.show()
 
 """Given the graph, a csv file is created that contains the list of edges that are the foundation for the plot in Figure 3 D."""
@@ -170,7 +199,7 @@ col_names = ["AA Residue 1", "AA Residue 2"]
 # Create a pandas dataframe from the list of tuples
 df = pd.DataFrame(graph_edges_list, columns=col_names)
 
-df.to_csv('graph_edges_list_1_-1.csv')
+df.to_csv("graph_edges_list_1_-1.csv")
 
 """## Epistasis graph with $k_{obs} = 1$ and $k_{exp} = 1$
 
@@ -182,9 +211,16 @@ k_obs = 1
 k_exp = 1
 
 # List of all positive / combinable mutations
-comb_pos_mut_pos_list, comb_pos_mut_aa_list = comb_pos_mut(full_mut_epistatic_score_list, full_mut_W_observed_list,
-                                                           full_mut_W_expected_list, full_mut_W_observed_std_list,
-                                                           full_mut_sequence_list, reference, k_obs, k_exp)
+comb_pos_mut_pos_list, comb_pos_mut_aa_list = comb_pos_mut(
+    full_mut_epistatic_score_list,
+    full_mut_W_observed_list,
+    full_mut_W_expected_list,
+    full_mut_W_observed_std_list,
+    full_mut_sequence_list,
+    reference,
+    k_obs,
+    k_exp,
+)
 
 """This list of is then used to construct an epistasis graph $\mathcal{G}=(V,E)$ where the set of nodes $V$ are residue positions and the set of edges $E$ display the positive epistatic interaction of two residue positions."""
 
@@ -192,8 +228,8 @@ comb_pos_mut_pos_list, comb_pos_mut_aa_list = comb_pos_mut(full_mut_epistatic_sc
 pos_comb_mut_edges = []
 pos_comb_mut_aa = []
 for higher_ord_mut in range(0, len(comb_pos_mut_pos_list)):
-    higher_order_mut_list = (list(map(list, itertools.combinations(comb_pos_mut_pos_list[higher_ord_mut], 2))))
-    higher_order_mut_aa_list = (list(map(list, itertools.combinations(comb_pos_mut_aa_list[higher_ord_mut], 2))))
+    higher_order_mut_list = list(map(list, itertools.combinations(comb_pos_mut_pos_list[higher_ord_mut], 2)))
+    higher_order_mut_aa_list = list(map(list, itertools.combinations(comb_pos_mut_aa_list[higher_ord_mut], 2)))
     if len(higher_order_mut_list) == 2:
         pos_comb_mut_edges.append(higher_order_mut_list)
         pos_comb_mut_aa.append(higher_order_mut_aa_list)
@@ -206,7 +242,8 @@ for higher_ord_mut in range(0, len(comb_pos_mut_pos_list)):
 
 # Node degree and amino acid distribution
 pos_comb_higher_mut_pos = np.concatenate(
-    (np.array(pos_comb_mut_edges)[:, 0], np.array(pos_comb_mut_edges)[:, 1].astype(int)), axis=0)
+    (np.array(pos_comb_mut_edges)[:, 0], np.array(pos_comb_mut_edges)[:, 1].astype(int)), axis=0
+)
 pos_comb_higher_mut_mut_aa = np.concatenate((np.array(pos_comb_mut_aa)[:, 0], np.array(pos_comb_mut_aa)[:, 1]), axis=0)
 
 pos_comb_higher_mut_pos_aa = np.stack((pos_comb_higher_mut_pos, pos_comb_higher_mut_mut_aa), axis=1)
@@ -222,11 +259,13 @@ dist_matrix = np.load("min_dimer_distances.npy")
 minimal_count_per_node = 0
 
 # Combinability graph for all mutants 2 - 5
-structural_epistasis_graph = construct_structural_epistasis_graph(pos_comb_mut_edges, minimal_count_per_node, dist_matrix, zero_edge_nodes=False)
-pos = nx.get_node_attributes(structural_epistasis_graph, 'pos')
+structural_epistasis_graph = construct_structural_epistasis_graph(
+    pos_comb_mut_edges, minimal_count_per_node, dist_matrix, zero_edge_nodes=False
+)
+pos = nx.get_node_attributes(structural_epistasis_graph, "pos")
 
 plt.figure()
-nx.draw(structural_epistasis_graph, pos, with_labels=True, font_weight='bold')
+nx.draw(structural_epistasis_graph, pos, with_labels=True, font_weight="bold")
 plt.show()
 
 """Given the graph created using `minimal_count_per_node = 5`, a csv file is created that contains the list of edges that are the foundation for the plot in Figure 3 E."""
@@ -239,4 +278,4 @@ col_names = ["AA Residue 1", "AA Residue 2"]
 # Create a pandas dataframe from the list of tuples
 df = pd.DataFrame(graph_edges_list, columns=col_names)
 
-df.to_csv('graph_edges_list_1_1.csv')
+df.to_csv("graph_edges_list_1_1.csv")

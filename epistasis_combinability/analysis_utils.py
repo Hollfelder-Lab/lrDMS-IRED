@@ -17,7 +17,6 @@ def call_aa_simple(reference_seq: str, target_seq: str) -> Tuple[list, list, lis
     """
     # Check for indels
     if len(reference_seq) != len(str(target_seq)):
-        #print("Indel detected")
         return "indel", "indel", "indel"
 
     # call mutations in 3 lists if only substitutions -> dataframe would be better
@@ -58,7 +57,7 @@ def preprocessing(data_frame: pd.DataFrame, num_mut: int, reference_seq: str) ->
             "Fitness": [],
             "Mutated AA": [],
             "Observed std of fitness": [],
-            "Pre sequence list": []
+            "Pre sequence list": [],
         }
 
     # Empty lists of preprocessed data
@@ -68,7 +67,6 @@ def preprocessing(data_frame: pd.DataFrame, num_mut: int, reference_seq: str) ->
         preprocessed_data[str(i) + " Mutation"] = locals()["mutation_dict" + str(i)]
 
     for i in range(len(seq_raw_list)):
-
         wt, pos, mut = call_aa_simple(reference_seq, seq_raw_list[i])
         if mut != "indel":
             n_mut = len(mut)
@@ -88,7 +86,6 @@ def preprocessing(data_frame: pd.DataFrame, num_mut: int, reference_seq: str) ->
         print(f"number of variants with mutations of order {num_mut_analysed} analyzed: {num_variants_analysed}")
 
     for higher_ord_mut in range(2, num_mut + 1):
-
         number_possible_epistatic_events = 0
 
         W_expected_list = []
@@ -122,12 +119,13 @@ def preprocessing(data_frame: pd.DataFrame, num_mut: int, reference_seq: str) ->
             single_mut_aa_list = []
 
             for sub_pos in range(len(positions)):
-
                 # loop through single mutant information
                 for a in range(len(preprocessed_data["1 Mutation"]["Positions"])):
                     # if match for subpositions -> append lists and numb found += 1
-                    if preprocessed_data["1 Mutation"]["Positions"][a][0] == positions[sub_pos] and \
-                            preprocessed_data["1 Mutation"]["Mutated AA"][a][0] == mut_aas[sub_pos]:
+                    if (
+                        preprocessed_data["1 Mutation"]["Positions"][a][0] == positions[sub_pos]
+                        and preprocessed_data["1 Mutation"]["Mutated AA"][a][0] == mut_aas[sub_pos]
+                    ):
                         num_found += 1
                         single_fitness_list.append(preprocessed_data["1 Mutation"]["Fitness"][a])
                         single_observed_std_list.append(preprocessed_data["1 Mutation"]["Observed std of fitness"][a])
@@ -139,12 +137,13 @@ def preprocessing(data_frame: pd.DataFrame, num_mut: int, reference_seq: str) ->
             if num_found == len(positions):
                 number_possible_epistatic_events += 1
                 single_observed_std_list.append(
-                    W_observed_std)  # Contains now full observed single and double mutations stdv
+                    W_observed_std
+                )  # Contains now full observed single and double mutations stdv
                 single_observed_std_list = np.array(single_observed_std_list)
 
                 # product model of expected fitness:
                 W_expected = sum(single_fitness_list)
-                W_expected_std = np.sqrt((single_observed_std_list ** 2).sum())  # Add W_observed_std
+                W_expected_std = np.sqrt((single_observed_std_list**2).sum())  # Add W_observed_std
                 epistatic_score = W_observed - W_expected
 
                 W_expected_list.append(W_expected)
@@ -183,9 +182,16 @@ def preprocessing(data_frame: pd.DataFrame, num_mut: int, reference_seq: str) ->
     return preprocessed_data
 
 
-def comb_pos_mut(epistatic_scores: list, obs_fitness_scores: list, exp_fitness_stdvs: list, obs_fitness_stdvs: list,
-                 mut_seqs: list,
-                 reference_seq: str, sig_std_obs: int, sig_std_exp: int) -> Tuple[list, list]:
+def comb_pos_mut(
+    epistatic_scores: list,
+    obs_fitness_scores: list,
+    exp_fitness_stdvs: list,
+    obs_fitness_stdvs: list,
+    mut_seqs: list,
+    reference_seq: str,
+    sig_std_obs: int,
+    sig_std_exp: int,
+) -> Tuple[list, list]:
     """
     Creates a list of at least double mutation positions based on positive epistatic effect and combinability (
     positive epistatic effect and additive single mutations)
@@ -207,8 +213,10 @@ def comb_pos_mut(epistatic_scores: list, obs_fitness_scores: list, exp_fitness_s
     # Create lists of double mutation positions dependent on positiveness and combinability
     for seq in range(len(mut_seqs)):
         # Ensure positive fitness effect and combinability
-        if obs_fitness_scores[seq] > sig_std_obs * obs_fitness_stdvs[seq] and epistatic_scores[
-            seq] > sig_std_exp * exp_fitness_stdvs[seq]:
+        if (
+            obs_fitness_scores[seq] > sig_std_obs * obs_fitness_stdvs[seq]
+            and epistatic_scores[seq] > sig_std_exp * exp_fitness_stdvs[seq]
+        ):
             sequence = mut_seqs[seq]
             _, mut_pos, mut_aa = call_aa_simple(reference_seq, sequence)
 
@@ -222,8 +230,16 @@ def comb_pos_mut(epistatic_scores: list, obs_fitness_scores: list, exp_fitness_s
     return comb_pos_mut_pos_list, comb_pos_mut_aa_list
 
 
-def double_mut_pos(epistatic_scores: list, obs_fitness_scores: list, exp_fitness_stdvs: list, obs_fitness_stdvs: list,
-                   double_mut_seqs: list, reference_seq: str, sig_std_obs: int, sig_std_exp: int) -> list:
+def double_mut_pos(
+    epistatic_scores: list,
+    obs_fitness_scores: list,
+    exp_fitness_stdvs: list,
+    obs_fitness_stdvs: list,
+    double_mut_seqs: list,
+    reference_seq: str,
+    sig_std_obs: int,
+    sig_std_exp: int,
+) -> list:
     """
     Creates a list of double mutation positions based on a positive epistatic effect and combinability (positive
     epistatic effect and additive single mutations)
@@ -247,8 +263,10 @@ def double_mut_pos(epistatic_scores: list, obs_fitness_scores: list, exp_fitness
     # Create lists of double mutation positions dependent on positiveness and combinability
     for seq in range(len(double_mut_seqs)):
         # Ensure positive fitness effect and combinability
-        if obs_fitness_scores[seq] > sig_std_obs * obs_fitness_stdvs[seq] and epistatic_scores[
-            seq] > sig_std_exp * exp_fitness_stdvs[seq]:
+        if (
+            obs_fitness_scores[seq] > sig_std_obs * obs_fitness_stdvs[seq]
+            and epistatic_scores[seq] > sig_std_exp * exp_fitness_stdvs[seq]
+        ):
             sequence = double_mut_seqs[seq]
             _, mut_pos, mut_aa = call_aa_simple(reference_seq, sequence)
 
@@ -264,14 +282,21 @@ def double_mut_pos(epistatic_scores: list, obs_fitness_scores: list, exp_fitness
     mut_aa_list_2_np = np.array(mut_aa_list_2)
 
     pos_comb_double_mut_list = np.stack(
-        (candidates_tria_1_np, candidates_tria_2_np, mut_aa_list_1_np, mut_aa_list_2_np), axis=1)  # .tolist()
+        (candidates_tria_1_np, candidates_tria_2_np, mut_aa_list_1_np, mut_aa_list_2_np), axis=1
+    )  # .tolist()
 
     return pos_comb_double_mut_list
 
 
-def double_mut_pos_eps(exp_fitness_scores: list, obs_fitness_scores: list, double_mut_seq: list, ref_seq: str,
-                       epistasis: Literal["positive", "negative", "none"], add_threshold: float,
-                       pos_threshold: float) -> list:
+def double_mut_pos_eps(
+    exp_fitness_scores: list,
+    obs_fitness_scores: list,
+    double_mut_seq: list,
+    ref_seq: str,
+    epistasis: Literal["positive", "negative", "none"],
+    add_threshold: float,
+    pos_threshold: float,
+) -> list:
     """
     Analyses the list of sequences of double mutants for positive, negative, or no epistasis and returns a list of
     double mutation positions for each sequence
@@ -287,7 +312,7 @@ def double_mut_pos_eps(exp_fitness_scores: list, obs_fitness_scores: list, doubl
     thresholds
     """
 
-    if epistasis != 'positive' and epistasis != 'negative' and epistasis != 'none':
+    if epistasis != "positive" and epistasis != "negative" and epistasis != "none":
         raise ValueError("Only 'positive', 'negative', or 'none' allowed as input for :param epistasis")
 
     if add_threshold < 0:
@@ -302,16 +327,18 @@ def double_mut_pos_eps(exp_fitness_scores: list, obs_fitness_scores: list, doubl
     # Create lists of double mutation positions dependent on epistatic or additive effect
     for k in range(len(double_mut_seq)):
         # Positive epistasis associated with positive outcome
-        if epistasis == 'positive' and pos_threshold > 0:
-            if obs_fitness_scores[k] > (exp_fitness_scores[k] + add_threshold) and obs_fitness_scores[
-                k] > pos_threshold:
+        if epistasis == "positive" and pos_threshold > 0:
+            if (
+                obs_fitness_scores[k] > (exp_fitness_scores[k] + add_threshold)
+                and obs_fitness_scores[k] > pos_threshold
+            ):
                 seq_i = double_mut_seq[k][0]
                 _, mut_pos, _ = call_aa_simple(ref_seq, seq_i)
 
                 candidates_tria_1.append(mut_pos[0])
                 candidates_tria_2.append(mut_pos[1])
         # Positive epistasis
-        elif epistasis == 'positive' and pos_threshold == 0:
+        elif epistasis == "positive" and pos_threshold == 0:
             if obs_fitness_scores[k] > (exp_fitness_scores[k] + add_threshold):
                 seq_i = double_mut_seq[k][0]
                 _, mut_pos, _ = call_aa_simple(ref_seq, seq_i)
@@ -319,7 +346,7 @@ def double_mut_pos_eps(exp_fitness_scores: list, obs_fitness_scores: list, doubl
                 candidates_tria_1.append(mut_pos[0])
                 candidates_tria_2.append(mut_pos[1])
         # Negative epistasis
-        elif epistasis == 'negative':
+        elif epistasis == "negative":
             if obs_fitness_scores[k] < (exp_fitness_scores[k] - add_threshold):
                 seq_i = double_mut_seq[k][0]
                 _, mut_pos, _ = call_aa_simple(ref_seq, seq_i)
@@ -327,9 +354,12 @@ def double_mut_pos_eps(exp_fitness_scores: list, obs_fitness_scores: list, doubl
                 candidates_tria_1.append(mut_pos[0])
                 candidates_tria_2.append(mut_pos[1])
         # No epistasis / additive effect
-        elif epistasis == 'none':
-            if (exp_fitness_scores[k] - add_threshold) <= obs_fitness_scores[k] <= (
-                    exp_fitness_scores[k] + add_threshold):
+        elif epistasis == "none":
+            if (
+                (exp_fitness_scores[k] - add_threshold)
+                <= obs_fitness_scores[k]
+                <= (exp_fitness_scores[k] + add_threshold)
+            ):
                 seq_i = double_mut_seq[k][0]
                 _, mut_pos, _ = call_aa_simple(ref_seq, seq_i)
 
@@ -386,8 +416,9 @@ def epistatic_interaction_double_mutation(double_mut_positions: list, query_pos:
     poss_interaction_comb = np.zeros((1, 2))
 
     if len(epistasis_partner) == 2:
-        poss_interaction_comb = np.concatenate((poss_interaction_comb, np.expand_dims(epistasis_partner, axis=0)),
-                                               axis=0)
+        poss_interaction_comb = np.concatenate(
+            (poss_interaction_comb, np.expand_dims(epistasis_partner, axis=0)), axis=0
+        )
         # add other permutation
         epistasis_partner_perm = np.array([[epistasis_partner[1], epistasis_partner[0]]])
         poss_interaction_comb = np.concatenate((poss_interaction_comb, epistasis_partner_perm), axis=0)
@@ -395,7 +426,6 @@ def epistatic_interaction_double_mutation(double_mut_positions: list, query_pos:
         poss_interaction_comb = poss_interaction_comb[1:, :]
 
     else:
-
         for pos_1 in range(len(epistasis_partner)):
             for pos_2 in range(len(epistasis_partner)):
                 if epistasis_partner[pos_1] != epistasis_partner[pos_2]:
@@ -413,8 +443,10 @@ def epistatic_interaction_double_mutation(double_mut_positions: list, query_pos:
 
     for pair in range(len(pairs_given_partner_list)):
         for comb in range(len(poss_interaction_comb)):
-            if pairs_given_partner_list[pair, 0] == poss_interaction_comb[comb, 0] and pairs_given_partner_list[
-                pair, 1] == poss_interaction_comb[comb, 1]:
+            if (
+                pairs_given_partner_list[pair, 0] == poss_interaction_comb[comb, 0]
+                and pairs_given_partner_list[pair, 1] == poss_interaction_comb[comb, 1]
+            ):
                 epistatic_interaction_given_query.append(pairs_given_partner_list[pair, :].tolist())
 
     epistatic_interaction_given_query = np.array(epistatic_interaction_given_query)
@@ -450,8 +482,9 @@ def epistasis_graph(double_mut_positions: list) -> nx.Graph:
     return graph
 
 
-def construct_structural_epistasis_graph(double_mutant_edges: list, filter_threshold: int,
-                                         distance_matrix: np.ndarray, zero_edge_nodes: bool = True) -> nx.Graph:
+def construct_structural_epistasis_graph(
+    double_mutant_edges: list, filter_threshold: int, distance_matrix: np.ndarray, zero_edge_nodes: bool = True
+) -> nx.Graph:
     """
     Given interaction edges and a distance matrix, construct a structural epistasis graph
 
@@ -503,7 +536,7 @@ def construct_structural_epistasis_graph(double_mutant_edges: list, filter_thres
             structural_epistasis_graph.add_node(node, pos=(Y_red[node - 1, 0], Y_red[node - 1, 1]))
         else:
             if np.any(unique_filtered_nodes == node):
-              structural_epistasis_graph.add_node(node, pos=(Y_red[node - 1, 0], Y_red[node - 1, 1]))
+                structural_epistasis_graph.add_node(node, pos=(Y_red[node - 1, 0], Y_red[node - 1, 1]))
 
     edges_list = []
     for pair in filtered_pos_comb_mut_edges:
