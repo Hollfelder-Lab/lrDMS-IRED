@@ -4,9 +4,6 @@
 [![Devices](https://img.shields.io/badge/%F0%9F%92%A7%20OpenWetWare-DropBase%20lrDMS%20chips-blue?style=flat&labelColor=gray&color=lightblue&link=https%3A%2F%2Fopenwetware.org%2Fwiki%2FDropBase%3ADevices)](https://openwetware.org/wiki/DropBase:Devices)
 [![Zenodo](https://img.shields.io/badge/zenodo-10.1101%2F2024.04.08.588565-blue?style=flat&link=https%3A%2F%2Fzenodo.org%2Frecords%2F11357236)](https://zenodo.org/records/11357236)
 [![Published paper](https://img.shields.io/badge/%F0%9F%93%83_full_paper-pdf-green)](https://www.biorxiv.org/content/10.1101/2024.04.08.588565.full.pdf)
-<a target="_blank" href="https://colab.research.google.com/drive/16rXKgbGXBBsHvS_2V84WbfKsJYf9lO4Q">
-  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
 
 This repo contains the processing scripts, code and evaluation methods for the paper "[Microdroplet screening rapidly profiles a biocatalyst to enable its AI-assisted engineering](https://www.biorxiv.org/content/10.1101/2024.04.08.588565.full.pdf)".
 
