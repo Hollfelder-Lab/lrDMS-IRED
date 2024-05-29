@@ -51,6 +51,10 @@ A convenient summary profile of the combinability and mutability of the obtained
 
 The documentation for the analysis of epistasis is in the [`epistasis`](epistasis_combinability) folder.
 
+## Analysis of single and double mutant models
+
+For a detailed analysis of the single and double mutant models (replicatiosn of models in the paper, ablations, learning curves, feature importances, top predictions), please refer to the [`notebooks`](notexbooks) folder, which contain analysis notebooks for each of the models.
+
 ## 🧪 Data
 
 Our data is available in the [`data`](data) folder and on Zenodo: [![Zenodo](https://img.shields.io/badge/zenodo-10.1101%2F2024.04.08.588565-blue?style=flat&link=https%3A%2F%2Fzenodo.org%2Frecords%2F11357236)](https://zenodo.org/records/11357236)
