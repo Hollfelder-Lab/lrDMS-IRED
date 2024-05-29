@@ -28,7 +28,17 @@ Alternatively, if you have an existing environment that you want to use, you can
 ```bash
 git clone https://github.com/Hollfelder-Lab/lrDMS-IRED.git
 cd lrDMS-IRED
-pip install .
+pip install -e .
+```
+
+**Via pip**:
+
+This will install `lrdms` in your environment's `site-packages`, and only include the main code & data,
+not the notebooks. This means you'll be able to import the functions and data in `lrdms` for use in your 
+own work. If you want to modify some of the code or try out the notebooks locally you should prefer one of the options above
+(or use the colab links provided in the [`notebooks`](notebooks) folder.
+```bash
+pip install git+https://github.com/Hollfelder-Lab/lrDMS-IRED.git
 ```
 
 ## 🚀 Usage
