@@ -26,7 +26,7 @@ The easiest way to run the scripts is via Google Colab. The Jupyter notebook `Ep
 
 After having opened the notebook in Colab, the python scripts `analysis_utils.py` and `plotting_utils.py` need to be uploaded. These scripts contain the core functions for the analyses and plots to be carried out. Also, the csv file `srired_active_data.csv` containing the DMS data as well as the distance matrix npy file `min_dimer_distances.npy` must be uploaded as shown by the following screenshot:
 
-![](uploading.png)
+![](../figs/uploading.png)
 
 ### Terminal
 

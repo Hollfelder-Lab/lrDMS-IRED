@@ -33,7 +33,7 @@ ToDo: provide script that gives profile shown in Figure S17.
 
 ### Combinability and Epistasis
 
-The documentation for the analysis of epistasis is in the `epistasis` folder.
+The documentation for the analysis of epistasis is in the [`epistasis`](epistasis_combinability) folder.
 
 ## 🧪 Data
 
