@@ -15,12 +15,12 @@ It also contains an integrated profile plot of median single fitness values and 
 
 ### Single mutant model analysis
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Hollfelder-Lab/lrDMS-IRED/blob/main/notebooks/single_mutant_analysis.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Hollfelder-Lab/lrDMS-IRED/blob/main/notebooks/single_mutant_model_analysis.ipynb)
 
 This notebook reproduces the single mutant model used for wet-lab experiments in the paper, including the top predictions. It also includes an ablation study of the language model features, the dataset, and learning curves.
 
-### Double mutant model analysi
+### Double mutant model analysis
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Hollfelder-Lab/lrDMS-IRED/blob/main/notebooks/double_mutant_analysis.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Hollfelder-Lab/lrDMS-IRED/blob/main/notebooks/double_mutant_model_analysis.ipynb)
 
 This notebook reproduces the double mutant model used for wet-lab experiments in the paper, including the top predictions. It also includes an ablation study of the language model features, the dataset, learning curves and analysis of feature importances.
