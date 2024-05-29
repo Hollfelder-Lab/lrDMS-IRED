@@ -16,6 +16,18 @@ This repo contains the processing scripts, code and evaluation methods for the p
 
 **Via github**:
 
+To ensure you have a compatible environment to run the code in, we recommend using the [`environment.yaml`](environment.yaml) file to create a conda environment using [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/install/install.html) or [`mamba`](https://mamba.readthedocs.io/en/latest/install/install.html). If you are curious, the detailed dependencies are listed in [`pyproject.toml`](pyproject.toml).
+
+```bash
+git clone https://github.com/Hollfelder-Lab/lrDMS-IRED.git
+cd lrDMS-IRED
+
+conda env create -f environment.yaml  # NOTE: This will auto-install all required dependencies and the `lrdms` package
+conda activate lrdms
+```
+
+Alternatively, if you have an existing environment that you want to use, you can install `lrdms` and the required dependencies using pip.
+
 ```bash
 git clone https://github.com/Hollfelder-Lab/lrDMS-IRED.git
 cd lrDMS-IRED
@@ -25,11 +37,15 @@ pip install .
 ## 🚀 Usage
 
 ### Raw data processing using the UMIC-seq2 suite and DiMSum
-The UMIC-seq2 pipeline is adapted from [Zurek et al 2020](https://www.nature.com/articles/s41467-020-19687-9) to allow for (i) the processing of larger datasets via use of mmseqs2 for clustering and (ii) incorporation of the UMI sequence in polished reads for use in long-read deep mutational scanning (lrDMS). Following the steps outlined in [`scripts`](scripts), raw Oxford Nanopore data can be used to generate a variant identifyer file 'VIF' that can be fed into the [DiMSum pipeline](https://github.com/lehner-lab/DiMSum). The provided scripts and outlined pipeline can also be used to analyse amplicon Oxford Nanopore data without downstream use of the file for lrDMS.   
+
+The UMIC-seq2 pipeline is adapted from [Zurek et al 2020](https://www.nature.com/articles/s41467-020-19687-9) to allow for (i) the processing of larger datasets via use of mmseqs2 for clustering and (ii) incorporation of the UMI sequence in polished reads for use in long-read deep mutational scanning (lrDMS). Following the steps outlined in [`scripts`](scripts), raw Oxford Nanopore data can be used to generate a variant identifyer file 'VIF' that can be fed into the [DiMSum pipeline](https://github.com/lehner-lab/DiMSum). The provided scripts and outlined pipeline can also be used to analyse amplicon Oxford Nanopore data without downstream use of the file for lrDMS.
 If lrDMS is conducted, next-gerneration sequencing reads of the UMI region before and after screening are used to calculate fitness score and the VIF is used to link UMI and variant identity. The output of the processing pipeline is a `.csv` file containing the fitness scores for individual sequences. For convenience, the processed data is also provided in the [`data`](data) folder as `srired_active_data.csv`. This data can then be used for combinability and mutability analysis and machine learning.
 
 ### Generation of a mutational profile: Combinabiliy and mutability
-ToDo: provide script that gives profile shown in Figure S17. 
+
+A convenient summary profile of the combinability and mutability of the obtained data, which may be used to inform rational engineering campaigns, can be generated as demonstrated in [`notebooks/data_analysis.ipynb`](notebooks/data_analysis.ipynb).
+
+<img src="figs/combinability_median_fitness.png">
 
 ### Combinability and Epistasis
 
@@ -40,6 +56,8 @@ The documentation for the analysis of epistasis is in the [`epistasis`](epistasi
 Our data is available in the [`data`](data) folder and on Zenodo: [![Zenodo](https://img.shields.io/badge/zenodo-10.1101%2F2024.04.08.588565-blue?style=flat&link=https%3A%2F%2Fzenodo.org%2Frecords%2F11357236)](https://zenodo.org/records/11357236)
 
 ## 📜 License
+
+This code is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 📃 Citing this work
 
