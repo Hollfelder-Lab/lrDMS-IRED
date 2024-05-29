@@ -13,7 +13,7 @@ This repo contains the processing scripts, code and evaluation methods for the p
 
 **Via github**:
 
-To ensure you have a compatible environment to run the code in, we recommend using the [`environment.yaml`](environment.yaml) file to create a conda environment using [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/install/install.html) or [`mamba`](https://mamba.readthedocs.io/en/latest/install/install.html). If you are curious, the detailed dependencies are listed in [`pyproject.toml`](pyproject.toml).
+To ensure you have a compatible environment to run the code in, we recommend using the [`environment.yaml`](environment.yaml) file to create a conda environment using `conda` or `mamba`. If you are curious, the detailed dependencies are listed in [`pyproject.toml`](pyproject.toml).
 
 ```bash
 git clone https://github.com/Hollfelder-Lab/lrDMS-IRED.git
