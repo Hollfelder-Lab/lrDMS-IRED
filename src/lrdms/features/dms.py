@@ -44,10 +44,11 @@ def calc_additive_fitness(variants: Sequence[Variant], singles_fitness: pd.DataF
 def compute_combinability_v1(
     data: pd.DataFrame,
     seq_len: int,
-    mutorder_col: str = "n_mut",
     variant_col: str = "variant",
     fitness_col: str = "fitness",
+    mutorder_col: str | None = None,
     fitness_thres: float = 0.0,
+    **kwargs,
 ) -> np.ndarray:
     """
     Calculates the combinability of each position in the protein sequence based on the provided data.
@@ -74,6 +75,14 @@ def compute_combinability_v1(
     - combinability (np.ndarray): A 2D numpy array of shape (seq_len, 2) containing the combinability
         of each position in the protein sequence.
     """
+    data = data.copy()
+    to_variant_obj = lambda v: v if isinstance(v, Variant) else Variant.from_str(v)
+    data[variant_col] = data[variant_col].apply(to_variant_obj)
+
+    if mutorder_col == None:
+        data["n_mut"] = data[variant_col].apply(len)
+        mutorder_col = "n_mut"
+
     # initialize the combinability array (positive and negative)
     combinability = np.zeros((seq_len, 2), dtype=np.int32)  # [l, 2]
 
@@ -101,11 +110,12 @@ def compute_combinability_v1(
 def compute_combinability_v2(
     data: pd.DataFrame,
     seq_len: int,
-    mutorder_col: str = "n_mut",
     variant_col: str = "variant_obj",
     fitness_col: str = "fitness",
     fitness_std_col: str = "sigma",
+    mutorder_col: str | None = None,
     fitness_thres: float = 0.0,
+    **kwargs,
 ) -> np.ndarray:
     """
     Calculates the combinability of each position in the protein sequence based on the provided data.
@@ -135,10 +145,18 @@ def compute_combinability_v2(
         np.ndarray: A 1D numpy array of shape (seq_len,) containing the combinability of each position
             in the protein sequence.
     """
+    data = data.copy()
+    to_variant_obj = lambda v: v if isinstance(v, Variant) else Variant.from_str(v)
+    data[variant_col] = data[variant_col].apply(to_variant_obj)
+
+    if mutorder_col == None:
+        data["n_mut"] = data[variant_col].apply(len)
+        mutorder_col = "n_mut"
 
     # initialize the combinability array
     combinability = np.zeros(seq_len, dtype=np.int32)  # [l]
 
+    # split data into singles and higher-order mutations
     singles = data[data[mutorder_col] == 1].copy()
     higher_order = data[data[mutorder_col] > 1].copy()
 
@@ -146,7 +164,6 @@ def compute_combinability_v2(
         variant = sample[variant_col]
         fitness = sample[fitness_col]
         sigma = sample.get(fitness_std_col, 0)  # default to 0 if std not available
-        variant = variant if isinstance(variant, Variant) else Variant.from_str(variant)
 
         # check if fitness is confidently positive (> wild-type)
         if (fitness - sigma) < fitness_thres:
@@ -184,19 +201,33 @@ class CombinabilityFeaturiser:
         seq_len: int = 290,
         variant_col: str = "variant",
         fitness_col: str = "true_fitness",
+        fitness_std_col: str = "sigma",
+        mutorder_col: str | None = None,
+        version: int = 1,
     ):
         self.seq_len = seq_len
         self.variant_col = variant_col
         self.fitness_col = fitness_col
+        self.mutorder_col = mutorder_col
+        self.fitness_std_col = fitness_std_col
+        self.version = version
+        if version == 1:
+            self.get_combinability = compute_combinability_v1
+        elif version == 2:
+            self.get_combinability = compute_combinability_v2
+        else:
+            raise ValueError(f"Invalid combinability version: {version}")
 
     def fit(self, X: pd.DataFrame, y: pd.Series = None):
-        self.combinability = compute_combinability_v1(
+        self.combinability = self.get_combinability(
             X,
             seq_len=self.seq_len,
             variant_col=self.variant_col,
             fitness_col=self.fitness_col,
+            mutorder_col=self.mutorder_col,
+            fitness_std_col=self.fitness_std_col,
         )
-        logger.info("Combinability calculated.")
+        logger.debug("Combinability calculated.")
         return self
 
     def transform(self, X: pd.DataFrame) -> pd.DataFrame:
@@ -205,8 +236,11 @@ class CombinabilityFeaturiser:
             lambda x: sum([self.combinability[mutation.pos] for mutation in x.mutations])
         )
         # Explode `combinability` column in positive and negative combinability
-        X["combinability_pos"] = X.combinability.apply(lambda x: x[0])
-        X["combinability_neg"] = X.combinability.apply(lambda x: x[1])
+        if self.version == 1:
+            X["combinability_pos"] = X.combinability.apply(lambda x: x[0])
+            X["combinability_neg"] = X.combinability.apply(lambda x: x[1])
+        elif self.version == 2:
+            X["combinability_pos"] = X.combinability
         # Drop the `combinability` column
         X = X.drop(columns=["combinability"])
         return X
@@ -216,4 +250,7 @@ class CombinabilityFeaturiser:
         return self.transform(X)
 
     def get_feature_names(self) -> List[str]:
-        return ["combinability_pos", "combinability_neg"]
+        if self.version == 1:
+            return ["combinability_pos", "combinability_neg"]
+        elif self.version == 2:
+            return ["combinability_pos"]
