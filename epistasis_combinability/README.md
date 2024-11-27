@@ -25,7 +25,7 @@ The easiest way to run the scripts is via Google Colab. The Jupyter notebook `Ep
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/fweberling/epistasis/blob/main/Epistasis_analysis.ipynb)
 
-After having opened the notebook in Colab, the python scripts `analysis_utils.py` and `plotting_utils.py` need to be uploaded. These scripts contain the core functions for the analyses and plots to be carried out. Also, the csv file `srired_active_data.csv` containing the DMS data as well as the distance matrix npy file `min_dimer_distances.npy` must be uploaded as shown by the following screenshot:
+After having opened the notebook in Colab, the python scripts `analysis_utils.py` and `plotting_utils.py` need to be uploaded. These scripts contain the core functions for the analyses and plots to be carried out. Also, the csv files `srired_active_data.csv` and `pcired_active_data.csv` containing the DMS data as well as the distance matrices npy file `srIRED_min_ca_dimer_distances.npy` and `pcIRED_min_ca_dimer_distances.npy` must be uploaded as shown by the following screenshot:
 
 ![](uploading.png)
 
