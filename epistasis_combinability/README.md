@@ -14,6 +14,7 @@ reference = "MRDTDVTVLGLGLMGQALAGAFLKDGHATTVWNRSEGKAGQLAEQGAVLASSARDAAEASPLVVVCV
 The DMS data are stored in csv files. The IRED DMS data csv files are used in this repository is:
 
 * `srired_active_data.csv`
+* `pcired_active_data.csv`
 
 
 ## Installation
