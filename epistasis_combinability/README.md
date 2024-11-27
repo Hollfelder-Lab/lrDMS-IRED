@@ -59,7 +59,7 @@ pip install networkx
 ```
 * matplotlib >= 3.6.0
 ```commandline
-pip install -U pip
+pip install -U matplotlib
 ```
 #### Running core analyses
 The core analyses is given in `epistasis_analysis.py` and can be run via following command
